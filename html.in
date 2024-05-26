@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Diabetes Prediction System</h1>
+    </header>
+    <main>
+        <div id="input-container">
+            <label for="pregnancies">Number of Pregnancies:</label>
+            <input type="number" id="pregnancies" name="pregnancies" required>
+            <label for="glucose">Glucose Level:</label>
+            <input type="number" id="glucose" name="glucose" required>
+            <label for="bloodPressure">Blood Pressure:</label>
+            <input type="number" id="bloodPressure" name="bloodPressure" required>
+            <label for="skinThickness">Skin Thickness:</label>
+            <input type="number" id="skinThickness" name="skinThickness" required>
+            <label for="insulin">Insulin Level:</label>
+            <input type="number" id="insulin" name="insulin" required>
+            <label for="bmi">BMI:</label>
+            <input type="number" id="bmi" name="bmi" step="0.01" required>
+            <label for="dpf">Diabetes Pedigree Function:</label>
+            <input type="number" id="dpf" name="dpf" step="0.01" required>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <button onclick="predictDiabetes()">Predict Diabetes</button>
+        </div>
+        <div id="output-container">
+            <h2>Diabetes Prediction: <span id="prediction"></span></h2>
+            <h3>Precautions:</h3>
+            <p id="precautions"></p>
+            <h3>Individual Predictions:</h3>
+            <ul id="individual-predictions"></ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Diabetes Prediction System</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
