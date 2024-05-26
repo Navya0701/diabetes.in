@@ -1,0 +1,75 @@
+function predictDiabetes() {
+    // Get the user input values
+    const pregnancies = parseFloat(document.getElementById('pregnancies').value);
+    const glucose = parseFloat(document.getElementById('glucose').value);
+    const bloodPressure = parseFloat(document.getElementById('bloodPressure').value);
+    const skinThickness = parseFloat(document.getElementById('skinThickness').value);
+    const insulin = parseFloat(document.getElementById('insulin').value);
+    const bmi = parseFloat(document.getElementById('bmi').value);
+    const dpf = parseFloat(document.getElementById('dpf').value);
+    const age = parseFloat(document.getElementById('age').value);
+
+    // Diabetes prediction model coefficients (example values from a trained model)
+    const intercept = -8;  // Replace with your actual model intercept
+    const coefficients = {
+        pregnancies: 0.1,  // Replace with your actual coefficient
+        glucose: 0.03,     // Replace with your actual coefficient
+        bloodPressure: 0.02,  // Replace with your actual coefficient
+        skinThickness: 0.02,  // Replace with your actual coefficient
+        insulin: 0.01,     // Replace with your actual coefficient
+        bmi: 0.2,          // Replace with your actual coefficient
+        dpf: 0.5,          // Replace with your actual coefficient
+        age: 0.1           // Replace with your actual coefficient
+    };
+
+    // Calculate the diabetes prediction score
+    const diabetesScore = intercept + 
+                          coefficients.pregnancies * pregnancies +
+                          coefficients.glucose * glucose +
+                          coefficients.bloodPressure * bloodPressure +
+                          coefficients.skinThickness * skinThickness +
+                          coefficients.insulin * insulin +
+                          coefficients.bmi * bmi +
+                          coefficients.dpf * dpf +
+                          coefficients.age * age;
+
+    // Convert the score to a probability (using a sigmoid function for binary classification)
+    const diabetesProbability = 1 / (1 + Math.exp(-diabetesScore));
+
+    // Display the diabetes prediction
+    const prediction = diabetesProbability > 0.5 ? "High Risk" : "Low Risk";
+    document.getElementById('prediction').textContent = `${prediction} (${(diabetesProbability * 100).toFixed(2)}%)`;
+
+    // Provide precautions based on the diabetes prediction
+    let precautions = '';
+
+    if (diabetesProbability > 0.5) {
+        precautions = 'You are at high risk for diabetes. Please consult a healthcare provider. Maintain a healthy diet, exercise regularly, and monitor your blood sugar levels.';
+    } else {
+        precautions = 'You are at low risk for diabetes. Continue maintaining a healthy lifestyle to keep your risk low.';
+    }
+
+    // Display the precautions
+    document.getElementById('precautions').textContent = precautions;
+
+    // Display individual predictions
+    const individualPredictions = [
+        `Pregnancies: ${coefficients.pregnancies * pregnancies}`,
+        `Glucose: ${coefficients.glucose * glucose}`,
+        `Blood Pressure: ${coefficients.bloodPressure * bloodPressure}`,
+        `Skin Thickness: ${coefficients.skinThickness * skinThickness}`,
+        `Insulin: ${coefficients.insulin * insulin}`,
+        `BMI: ${coefficients.bmi * bmi}`,
+        `Diabetes Pedigree Function: ${coefficients.dpf * dpf}`,
+        `Age: ${coefficients.age * age}`
+    ];
+
+    const predictionsList = document.getElementById('individual-predictions');
+    predictionsList.innerHTML = '';  // Clear previous predictions
+
+    individualPredictions.forEach(prediction => {
+        const listItem = document.createElement('li');
+        listItem.textContent = prediction;
+        predictionsList.appendChild(listItem);
+    });
+}
